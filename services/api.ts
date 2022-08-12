@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { parseCookies, setCookie } from "nookies";
+import { signOut } from "../contexts/AuthContext";
 
 type AxiosErrorResponse = {
   code?: string;
@@ -19,7 +20,7 @@ export const api = axios.create({
 api.interceptors.response.use(response => {
   return response;
 }, (error: AxiosError<AxiosErrorResponse>) => {
-  if (error.response.status === 401) {
+  if (error.response.status === 401) { //erro de não autorizado
     if (error.response.data?.code === "token.expired") {
       cookies = parseCookies();
 
@@ -76,9 +77,10 @@ api.interceptors.response.use(response => {
           }
         });
       });
-    } 
-    // else {
-    //   //deslogar usuário
-    // }
+    } else {
+      signOut();
+    }
   }
+
+  return Promise.reject(error);
 });

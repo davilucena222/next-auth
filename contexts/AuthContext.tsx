@@ -1,12 +1,7 @@
 import {createContext, ReactNode, useEffect, useState} from "react";
 import Router from "next/router";
-import {setCookie, parseCookies} from "nookies";
+import {setCookie, parseCookies, destroyCookie} from "nookies";
 import {api} from "../services/api";
-import { AxiosRequestConfig, AxiosRequestHeaders, HeadersDefaults } from "axios";
-
-// interface SmartAxiosDefaults<D = any> extends Omit<AxiosRequestConfig<D>, 'headers'> {
-//   headers: HeadersDefaults & AxiosRequestHeaders;
-// }
 
 type User = {
   email: string;
@@ -32,6 +27,13 @@ type AuthProviderProps = {
 //valor inicial do contexto
 export const AuthContext = createContext({} as AuthContextData);
 
+export function signOut() {
+  destroyCookie(undefined, "nextAuth.token");
+  destroyCookie(undefined, "nextAuth.refreshToken");
+
+  Router.push("/");
+}
+
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const isAuthenticated = !!user;
@@ -48,6 +50,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
           permissions, 
           roles,
         });
+      }).catch(() => {
+        signOut();
       })
     }
   }, []);
@@ -76,11 +80,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
         roles
       });
 
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      Router.push("/dashboard");
+
       // const apiDefaults = api.defaults as SmartAxiosDefaults;
       // apiDefaults.headers.common['Authorization'] = `Bearer ${token}`;
-      Router.push('/dashboard');
 
     } catch(error) {
       console.log(error);
