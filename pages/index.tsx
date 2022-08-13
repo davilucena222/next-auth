@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 export default function Home() {
   const {isAuthenticated, signIn} = useContext(AuthContext);
@@ -26,3 +27,11 @@ export default function Home() {
     </form>
   )
 }
+
+//lado do back-end
+//ao utilizar os cookies no lado do back-end (servidor) é preciso passar o contexto da requisição
+export const getServerSideProps = withSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  }
+});

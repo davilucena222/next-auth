@@ -12,10 +12,9 @@ let failedRequestsQueue = [];
 
 export const api = axios.create({
   baseURL: "http://localhost:3333",
-  headers: {
-    Authorization: `Bearer ${cookies["nextAuth.token"]}`
-  }
 });
+
+api.defaults.headers.common['Authorization'] = `Bearer ${cookies["nextAuth.token"]}`;
 
 api.interceptors.response.use(response => {
   return response;
