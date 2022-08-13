@@ -1,6 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import { parseCookies } from "nookies";
 
+//função que permite apenas usuários que não estão autenticados acessar páginas como cadastro e recuperação de senha
 export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);

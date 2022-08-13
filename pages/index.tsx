@@ -28,6 +28,7 @@ export default function Home() {
   )
 }
 
+//validação feita pelo servidor
 //lado do back-end
 //ao utilizar os cookies no lado do back-end (servidor) é preciso passar o contexto da requisição
 export const getServerSideProps = withSSRGuest(async (ctx) => {
