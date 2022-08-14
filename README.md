@@ -1,7 +1,7 @@
 # 🔖 Next Auth
 
 <p>
-  Next Auth is an application that was developed with the best back-end practices approaches when it comes about authentication, authorization, generating tokens, refresh tokens, designated a user to a specific route, page or website. This is a approache to handle with log in, sign in, sign out and the most errors that could happen when a user interact with a website and cookies.
+  Next Auth is an application that was developed with Next.js and the best back-end practices approaches when it comes about authentication, authorization, generating tokens, refresh tokens, designated a user to a specific route, page or website. This is a approache to handle with log in, sign in, sign out and the most errors that could happen when a user interact with a website and cookies.
   
   In this application was used the cookies to save the token and refresh token data to store the user informations. The jwt token was used in this development as a way to handle with the user email, roles and permissions, this roles and permissions was necessary to handle with the user access to specific pages, also to redirect the user if not exists a token, permission or a role approved.
   
